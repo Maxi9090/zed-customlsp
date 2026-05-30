@@ -1,0 +1,34 @@
+id = "lspaddon"
+name = "LSP Addon"
+version = "0.1.0"
+description = "LSP Addon"
+authors = ["example <example@example.com>"]
+schema_version = 1
+
+[language_servers.taplo]
+name = "taplo"
+language = "TOML"
+
+[language_servers.stylua]
+name = "stylua"
+language = "Lua"
+
+[language_servers.tsgo]
+name = "tsgo"
+languages = ["TypeScript", "JavaScript", "TSX"]
+
+[language_servers.fortls]
+name = "fortls"
+language = "Fortran"
+
+[language_servers.vscode-json-language-server]
+name = "vscode-json-language-server"
+language = "JSON"
+
+[language_servers.jedi]
+name = "jedi"
+language = "Python"
+
+[language_servers.neocmakelsp]
+name = "neocmakelsp"
+language = "CMake"
