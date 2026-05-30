@@ -38,3 +38,5 @@ Each entry requires:
 ```
 
 The LSP server ID in settings must match the `name` field in `extension.toml`. After these steps, the language selector in Zed will recognize the new LSP server for the associated languages.
+You can put it to ~/.local/share/zed/extensions/installed/lspaddon/ to install it or the button in zed install dev extension to install it 
+and edit  ~/.local/share/zed/extensions/installed/lspaddon/extension.toml to extend allowed lsp servers
