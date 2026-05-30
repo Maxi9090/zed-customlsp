@@ -17,9 +17,24 @@ languages = ["TypeScript", "JavaScript", "TSX"]
 ```
 
 Each entry requires:
-- `name` — the binary name (must be on `$PATH`)
+- `name` — the binary name (used as the LSP server ID)
 - `language` / `languages` — one or more language scopes to associate
 
 2. Reimport the extension in Zed (`zed: extensions` → find LSP Addon → reinstall or reload).
+3. Ensure the LSP server binary is installed and available on your system.
+4. Configure it in your Zed settings (`~/.config/zed/settings.json`) as needed:
 
-The LSP server binary must be installed and available on your system `$PATH` for this to work.
+```json
+{
+  "lsp": {
+    "tsgo": {
+      "binary": {
+        "path": "~/.local/bin/tsgo",
+        "arguments": ["--lsp", "--stdio"]
+      }
+    }
+  }
+}
+```
+
+The LSP server ID in settings must match the `name` field in `extension.toml`. After these steps, the language selector in Zed will recognize the new LSP server for the associated languages.
