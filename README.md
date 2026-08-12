@@ -1,10 +1,22 @@
 # LSP Addon
 
-A Zed extension that lets you register arbitrary LSP servers without writing custom extension code.
+Register any external LSP server in Zed without writing extension code.
 
-## Usage
+## Requirements
 
-1. Edit `extension.toml` to add your LSP server under `[language_servers.*]`:
+- Read Zed extension documentation ([link](https://zed.dev/docs/extensions/developing-extensions)).
+- **[Rust](https://rust-lang.github.io/rustup/installation/index.html) installed.** Zed compiles dev extensions from source.
+- Your LSP server binaries are installed and available on your system.
+
+## Install
+
+1. In Zed, open `Extensions`, click `Install Dev Extensions`. Or run `zed: install dev extension` from the command palette.
+2. Select this folder.
+3. See that it is installed as `LSP Addon` in the extensions tab.
+
+## Add LSP server
+
+Edit `extension.toml` to add your LSP server under `[language_servers.*]`:
 
 ```toml
 [language_servers.taplo]
@@ -16,27 +28,39 @@ name = "tsgo"
 languages = ["TypeScript", "JavaScript", "TSX"]
 ```
 
-Each entry requires:
-- `name` — the binary name (used as the LSP server ID)
-- `language` / `languages` — one or more language scopes to associate
+To apply your changes: Open `Extensions` in Zed, find `LSP Addon` and click `Rebuild`. Or run `zed: rebuild dev extension` from the command palette.
 
-2. Reimport the extension in Zed (`zed: extensions` → find LSP Addon → reinstall or reload).
-3. Ensure the LSP server binary is installed and available on your system.
-4. Configure it in your Zed settings (`~/.config/zed/settings.json`) as needed:
+Each entry requires:
+- `name` — must match the key you use in your Zed `settings.json`.
+- `language` / `languages` — one or more language scopes to associate.
+
+Edit your Zed `settings.json` to configure the LSP server:
 
 ```json
 {
   "lsp": {
-    "tsgo": {
+    "taplo": {
       "binary": {
-        "path": "~/.local/bin/tsgo",
-        "arguments": ["--lsp", "--stdio"]
+        "path": "~/.local/bin/taplo",
+        "arguments": ["lsp", "stdio"]
       }
     }
   }
 }
 ```
 
-The LSP server ID in settings must match the `name` field in `extension.toml`. After these steps, the language selector in Zed will recognize the new LSP server for the associated languages.
-You can put it to ~/.local/share/zed/extensions/installed/lspaddon/ to install it or the button in zed install dev extension to install it 
-and edit  ~/.local/share/zed/extensions/installed/lspaddon/extension.toml to extend allowed lsp servers
+Enable it for the language:
+
+```json
+{
+  "languages": {
+    "TOML": {
+      "enable_language_server": true,
+      "language_servers": ["taplo"],
+      "formatter": "language_server"
+    }
+  }
+}
+```
+
+Restart Zed and open a file in that language.
